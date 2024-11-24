@@ -3,8 +3,6 @@ import localFont from "next/font/local";
 import { ThemeProvider } from "components/theme/theme-provider"
 import "./globals.css";
 
-export const runtime = "edge";
-
 const geistSans = localFont({
 	src: "./fonts/GeistVF.woff",
 	variable: "--font-geist-sans",

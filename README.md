@@ -1,4 +1,11 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Budget App
+
+Welcome to the **Budget App**!  
+
+## Access the App  
+Click the link below to open the web app:  
+
+[**Open the Budget App**](https://budget-app-two-dun.vercel.app/) 
 
 ## Getting Started
 
