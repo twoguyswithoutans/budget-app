@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Bar, Line, ResponsiveContainer } from "recharts";
+import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Bar, ResponsiveContainer } from "recharts";
 import { GetExpense } from "expense/GetExpenses";
 import { parseISO, getMonth, getYear } from 'date-fns';
 
-let formatCurrency = new Intl.NumberFormat('tr-TR', {
+const formatCurrency = new Intl.NumberFormat('tr-TR', {
     style: 'currency',
     currency: 'TRY',
     minimumFractionDigits: 0,
@@ -13,7 +13,7 @@ export default function ExpenseBarChart() {
     const [view, setView] = useState("monthly");
     const expenses = GetExpense().sort((a: { date: string; }, b: { date: string; }) => parseISO(a.date).getTime() - parseISO(b.date).getTime());
 
-    const aggregatedExpenses = expenses.reduce((acc: { [x: string]: { date: string; price: any; }; }, expense: { date: string; price: any; }) => {
+    const aggregatedExpenses = expenses.reduce((acc: { [x: string]: { date: string; price: number; }; }, expense: { date: string; price: number; }) => {
         const date = parseISO(expense.date);
         const key = view === "monthly" ? `${getMonth(date) + 1}/${getYear(date)}` : `${getYear(date)}`;
         if (!acc[key]) {

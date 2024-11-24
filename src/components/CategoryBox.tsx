@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { ExceededCategories } from "models/Models";
 
-let formatCurrency = new Intl.NumberFormat('tr-TR', {
+const formatCurrency = new Intl.NumberFormat('tr-TR', {
     style: 'currency',
     currency: 'TRY',
     minimumFractionDigits: 0,
@@ -18,7 +18,7 @@ export default function CategoryBox() {
         const total: number = JSON.parse(localStorage.getItem("totalExpense") || "0");
         const limitExceededCategories: ExceededCategories[] = JSON.parse(localStorage.getItem("exceededCategories") || "[]");
 
-        for(let item of expenses) {
+        for(const item of expenses) {
             if(categoryTotals[item.category]) {
                 categoryTotals[item.category] += item.price;
             } else {

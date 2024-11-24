@@ -7,7 +7,7 @@ interface NavbarProps {
     openAddLimitOverlay: () => void;
 }
 
-let formatCurrency = new Intl.NumberFormat('tr-TR', {
+const formatCurrency = new Intl.NumberFormat('tr-TR', {
     style: 'currency',
     currency: 'TRY',
     minimumFractionDigits: 0,

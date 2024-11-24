@@ -33,7 +33,7 @@ export default function AddLimitOverlay({ isOpen }: AddLimitOverlayProps) {
 
         const limitExceeded: string[] = [];
 
-        for(let item of expenses) {
+        for(const item of expenses) {
             if(categorySpent[item.category]) {
                 categorySpent[item.category] += item.price;
             }
@@ -42,8 +42,8 @@ export default function AddLimitOverlay({ isOpen }: AddLimitOverlayProps) {
             }
         }
 
-        for(let key of Object.keys(limits)) {
-            let limit = limits[key];
+        for(const key of Object.keys(limits)) {
+            const limit = limits[key];
             if((categorySpent[limit.category]) >= (limit.limit * 0.8)) {
                 if (!limitExceeded.includes(limit.category)) {
                     limitExceeded.push(limit.category);
