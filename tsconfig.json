@@ -19,7 +19,14 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "components/*": ["./src/components/*"],
+      "navbar/*": ["./src/components/navbar/*"],
+      "overlay/*": ["./src/components/overlay/*"],
+      "models/*": ["./src/models/*"],
+      "income/*": ["./src/mutations/income/*"],
+      "expense/*": ["./src/mutations/expense/*"],
+      "limits/*": ["./src/mutations/limits/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
