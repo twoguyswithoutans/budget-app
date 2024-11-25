@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { AddExpense } from "expense/AddExpense"
-import { format, parseISO } from "date-fns"
+import { format } from "date-fns"
 import { AddExceededCategories } from "limits/AddExceededCategories";
 import { PresetCategories } from "models/Models";
 
@@ -22,8 +22,7 @@ export default function AddExpenseOverlay({ isOpen }: ExpensePanelProps) {
         }
     };
     const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const selectedDate = format(parseISO(event.target.value), "yyyy-MM-dd");
-        setDate(selectedDate);
+        setDate(event.target.value);
     };
     const handleDescriptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDescription(event.target.value.toLowerCase());
@@ -69,7 +68,7 @@ export default function AddExpenseOverlay({ isOpen }: ExpensePanelProps) {
         if (price === undefined || price <= 0) { return }
         const expense = {
             price: price !== undefined ? price : 0,
-            date: date !== undefined ? format(parseISO(date), "yyyy-MM-dd") : format(new Date(), "yyyy-MM-dd"),
+            date: date !== undefined ? date : format(new Date(), "yyyy-MM-dd"),
             description: description,
             category: category
         }
@@ -106,7 +105,7 @@ export default function AddExpenseOverlay({ isOpen }: ExpensePanelProps) {
                     <div className="rounded-xl border w-full md:w-1/2 h-24 mb-5 pr-5 md:px-5 flex items-center bg-content-secondary focus-within:ring-2 focus-within:ring-content-secondary ring-offset-2 ring-offset-content">
                         <div className="px-5 text-sm font-semibold text-secondary">Date</div>
                         <input className="w-full h-full bg-transparent text-sm md:text-base font-semibold focus:outline-none focus:bg-transparent text-content-primary" type="date"
-                        value={date ? format(parseISO(date), "yyyy-MM-dd") : format(new Date(), "yyyy-MM-dd")}
+                        value={date}
                         onChange={handleDateChange}
                         />
                     </div>

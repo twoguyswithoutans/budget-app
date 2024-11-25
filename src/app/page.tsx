@@ -27,30 +27,30 @@ export default function Home() {
 		setIsAddLimitOpen(false);
 	}
 
-
 	useEffect(() => {
 		MonthlyExpense();
 		TotalExpense();
-        const storedIncome = localStorage.getItem("income");
-        if (storedIncome !== null) { setIncome(false); }
-        if (storedIncome === null) { setIncome(true); }
+	} ,[]);
 
-        const storedExpenses = localStorage.getItem("expense");
+	useEffect(() => {
+		const storedIncome = localStorage.getItem("income");
+		if (storedIncome !== null) { setIncome(false); }
+		else { setIncome(true); }
+	} ,[]);
+
+	useEffect(() => {
+		const storedExpenses = localStorage.getItem("expense");
         if (storedExpenses !== null) { setExpenses(true); }
-        if (storedExpenses === null) { setExpenses(false); }
+        else { setExpenses(false); }
+	} ,[]);
 
+	useEffect(() => {
 		const limit = [];
 		const limitExceededCategories: ExceededCategories[] = JSON.parse(localStorage.getItem("exceededCategories") || "[]");
 		limit.push(limitExceededCategories[0]?.category);
 		if(limitExceededCategories[0]?.category !== undefined) {
 			if(limit[0]?.length !== 0) { setShowAlert(true); }
 			else { setShowAlert(false); }
-		}
-
-		if (typeof window !== "undefined" && !localStorage.getItem("hasLoaded")) {
-			window.dispatchEvent(new Event("storage"));
-			window.location.reload();
-			localStorage.setItem("hasLoaded", "true");
 		}
     }, []);
 
@@ -89,13 +89,12 @@ export default function Home() {
 						) : (
 							<div className="w-full h-[80vh] flex justify-center items-center">
 								<div className="w-full h-full flex justify-center items-center">
-									<div className="text-2xl font-bold text-gray-500">No expenses added yet</div>
+									<div className="text-2xl font-bold text-muted">No expenses added yet</div>
 								</div>
 							</div>
 						)}
 					</div>
 				</div>
-
 			)}
 		</div>
 	);

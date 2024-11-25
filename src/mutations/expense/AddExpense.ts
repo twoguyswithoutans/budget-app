@@ -11,6 +11,5 @@ export function AddExpense({ price, date, description, category}: Transaction) {
     const setTransaction = JSON.parse(localStorage.getItem('expense') || '[]');
     setTransaction.push(transaction);
     localStorage.setItem('expense', JSON.stringify(setTransaction));
-    window.dispatchEvent(new Event("storage"));
     window.location.reload();
 }

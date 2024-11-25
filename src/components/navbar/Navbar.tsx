@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { GetIncome } from "income/GetIncome";
 import MobileViewNavbarDropdown from "navbar/MobileViewNavbarDropdown";
 import ThemeToggle from "components/theme/themeToggle";
@@ -14,8 +15,11 @@ const formatCurrency = new Intl.NumberFormat('tr-TR', {
 });
 
 export default function Navbar({openAddExpenseOverlay, openAddLimitOverlay}: NavbarProps) {
-    const income = GetIncome();
-    const formattedIncome = formatCurrency.format(income);
+    const [formattedIncome, setFormattedIncome] = useState<string>("loading...");
+    useEffect(() => {
+        const income: number = GetIncome();
+        setFormattedIncome(formatCurrency.format(income));
+    }, []);
 
     function changeIncome() {
         localStorage.removeItem("income");
@@ -31,7 +35,7 @@ export default function Navbar({openAddExpenseOverlay, openAddLimitOverlay}: Nav
                 <div className="flex flex-col items-center">
                     <div className="text-sm font-semibold text-navbar-secondary">Monthly Income</div>
                     <div className="flex text-sm md:text-lg font-medium md:font-bold text-navbar-primary">
-                        {formattedIncome}<span className="px-1"></span>
+                        {formattedIncome}
                     </div>
                 </div>
             </div>

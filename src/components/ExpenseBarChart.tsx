@@ -29,7 +29,7 @@ export default function ExpenseBarChart() {
         <div className="rounded-lg w-full h-full p-10 flex flex-col border border-secondary">
             <div className="my-12 flex justify-end">
                 <button
-                    className="rounded py-2 px-4 text-white font-bold bg-[#A99DE5] hover:opacity-60 active:bg-[#716cc4]"
+                    className="rounded py-2 px-4 text-white font-bold bg-[#A99DE5] md:hover:opacity-60 md:active:bg-[#716cc4]"
                     onClick={() => setView(view === "monthly" ? "yearly" : "monthly")}>
                     {view === "monthly" ? "Show Yearly View" : "Show Monthly View"}
                 </button>

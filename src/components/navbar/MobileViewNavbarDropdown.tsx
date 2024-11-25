@@ -39,7 +39,7 @@ export default function MobileViewNavbarDropdown({openAddLimitOverlay, openAddEx
                     <div className="w-full h-full">
                         <button
                             onClick={()=>openAddLimitOverlay()}
-                            className="rounded-full px-8 py-5 w-full h-full flex justify-center items-center text-sm font-extrabold hover:bg-[#D7CCFF] hover:text-black hover:opacity-60 active:bg-[#A99DE5] focus:outline-2 focus:outline-[#C4C1FF] cursor-pointer"
+                            className="rounded-full px-8 py-5 w-full h-full flex justify-center items-center text-sm font-extrabold cursor-pointer"
                         >
                             Add Limit
                         </button>
@@ -47,7 +47,7 @@ export default function MobileViewNavbarDropdown({openAddLimitOverlay, openAddEx
                     <div className="w-full h-full">
                         <button
                             onClick={()=>openAddExpenseOverlay()}
-                            className="rounded-full px-8 py-5 w-full h-full flex justify-center items-center text-sm font-extrabold hover:bg-[#D7CCFF] hover:text-black hover:opacity-60 active:bg-[#A99DE5] focus:outline-2 focus:outline-[#C4C1FF] cursor-pointer"
+                            className="rounded-full px-8 py-5 w-full h-full flex justify-center items-center text-sm font-extrabold cursor-pointer"
                         >
                             Add Expense
                         </button>
@@ -55,7 +55,7 @@ export default function MobileViewNavbarDropdown({openAddLimitOverlay, openAddEx
                     <div className="w-full h-full">
                         <button
                             onClick={()=>changeIncome()}
-                            className="rounded-full px-8 py-5 w-full h-full flex justify-center items-center text-sm font-extrabold hover:bg-[#D7CCFF] hover:text-black hover:opacity-60 active:bg-[#A99DE5] focus:outline-2 focus:outline-[#C4C1FF] cursor-pointer"
+                            className="rounded-full px-8 py-5 w-full h-full flex justify-center items-center text-sm font-extrabold cursor-pointer"
                         >
                             Update Income
                         </button>

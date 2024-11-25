@@ -1,15 +1,8 @@
 import { AddIncome } from "@/mutations/income/AddIncome"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 
 export default function IncomePanel() {
     const [income, setIncome] = useState<string>("");
-
-    useEffect(() => {
-        const storedIncome = localStorage.getItem("income");
-        if (storedIncome) {
-            setIncome(storedIncome);
-        }
-    }, []);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value.replace(/\D/g, '');
@@ -24,11 +17,7 @@ export default function IncomePanel() {
 
     const submitIncome = () => {
         const incomeValue = Number(income.replace(/[₺,]/g, ''));
-        if(!isNaN(incomeValue)) {
-            AddIncome({ amount: incomeValue });
-            window.dispatchEvent(new Event("storage"));
-            window.location.reload();
-        }
+        AddIncome({ amount: incomeValue });
     }
 
     return (
