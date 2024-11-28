@@ -26,7 +26,7 @@ export function GetExpense() {
 
 export function SetMonthlyExpense() {
     let total = 0;
-    const expenses: Transaction[] = GetExpense();
+    const expenses: Transaction[] = GetExpense() || [];
     const currentDate = new Date();
 
     const monthlyExpense = expenses.filter(item => {
@@ -49,7 +49,7 @@ export function GetMonthlyExpense() {
 
 export function SetTotalExpense() {
     let totalExpense = 0;
-    const expenses: Transaction[] = GetExpense();
+    const expenses: Transaction[] = GetExpense() || [];
     totalExpense = expenses.reduce((sum, item) => sum + item.price, 0);
     localStorage.setItem('totalExpense', JSON.stringify(totalExpense));
 }

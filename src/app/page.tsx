@@ -50,7 +50,7 @@ export default function Home() {
 		const limit = [];
 		const limitExceededCategory = GetExceededCategory();
 		limit.push(limitExceededCategory);
-		if(limitExceededCategory !== undefined) {
+		if(limitExceededCategory) {
 			if(limit[0]?.length !== 0) { setShowAlert(true); }
 			else { setShowAlert(false); }
 		}

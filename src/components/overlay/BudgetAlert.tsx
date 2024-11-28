@@ -6,7 +6,7 @@ interface BudgetAlertProps {
 }
 
 export default function BudgetAlert({ setShowAlert }: BudgetAlertProps) {
-    const limits:[] = GetExceededCategory();
+    const limits: ExceededCategory[] = GetExceededCategory() || [];
     const limited = limits.flatMap(category => category);
     return (
         <div className="fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-80 z-50">
@@ -20,7 +20,7 @@ export default function BudgetAlert({ setShowAlert }: BudgetAlertProps) {
                         {limited.map((limit, index) => (
                             <div key={index} className="w-fit flex">
                                 <span className="pr-2 md:pr-4 flex text-red-600 underline text-base md:text-2xl font-medium md:font-bold">
-                                    {limit}
+                                    {limit.toString()}
                                     {index < limited.length - 1 ? "," : ""}
                                 </span>
                             </div>
