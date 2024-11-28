@@ -11,7 +11,6 @@ import AddExpenseOverlay from "overlay/AddExpenseOverlay";
 import { GetExpense, SetMonthlyExpense, SetTotalExpense } from "expense/Expense";
 import { GetExceededCategory } from "limit/ExceededCategory";
 import { GetIncome } from "income/Income";
-import { ExceededCategory } from "models/Models";
 
 export default function Home() {
 	const [income, setIncome] = useState<boolean>();

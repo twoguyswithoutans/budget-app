@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { GetExpense, GetTotalExpense } from "expense/Expense";
 import { GetExceededCategory } from "limit/ExceededCategory";
-import { Category, ExceededCategory, Income } from "models/Models";
+import { Category, Income } from "models/Models";
 import { turkishCurrencyFormat } from "@/util/CurrencyFormat"
 
 export default function CategoryBox() {
