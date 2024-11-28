@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { GetIncome } from "income/GetIncome";
-import MobileViewNavbarDropdown from "navbar/MobileViewNavbarDropdown";
 import ThemeToggle from "components/theme/themeToggle";
+import MobileViewNavbarDropdown from "navbar/MobileViewNavbarDropdown";
+import { GetIncome } from "income/Income";
 
 interface NavbarProps {
     openAddExpenseOverlay: () => void;
@@ -46,7 +46,7 @@ export default function Navbar({openAddExpenseOverlay, openAddLimitOverlay}: Nav
                 <div className="w-full h-full">
                     <button
                         onClick={()=>openAddLimitOverlay()}
-                        className="rounded-full px-8 w-full h-full flex justify-center items-center text-sm font-extrabold hover:bg-[#86809E] hover:text-black active:bg-[#6B648F] active:text-black focus:outline-2  focus:outline-[#C4C1FF] cursor-pointer"
+                        className="rounded-full px-8 w-full h-full flex justify-center items-center text-sm font-extrabold bg-background md:hover:bg-foreground md:hover:text-background md:hover:opacity-60 md:active:bg-foreground md:active:text-background md:active:opacity-80 cursor-pointer"
                     >
                         Add Limit
                     </button>
@@ -54,7 +54,7 @@ export default function Navbar({openAddExpenseOverlay, openAddLimitOverlay}: Nav
                 <div className="w-full h-full">
                     <button
                         onClick={()=>openAddExpenseOverlay()}
-                        className="rounded-full px-8 w-full h-full flex justify-center items-center text-sm font-extrabold hover:bg-[#86809E] hover:text-black active:bg-[#6B648F] active:text-black focus:outline-2 focus:outline-[#C4C1FF] cursor-pointer"
+                        className="rounded-full px-8 w-full h-full flex justify-center items-center text-sm font-extrabold bg-background md:hover:bg-foreground md:hover:text-background md:hover:opacity-60 md:active:bg-foreground md:active:text-background md:active:opacity-80 cursor-pointer"
                     >
                         Add Expense
                     </button>
@@ -62,7 +62,7 @@ export default function Navbar({openAddExpenseOverlay, openAddLimitOverlay}: Nav
                 <div className="w-full h-full">
                     <button
                         onClick={()=>changeIncome()}
-                        className="rounded-full px-8 w-full h-full flex justify-center items-center text-sm font-extrabold hover:bg-[#86809E] hover:text-black active:bg-[#6B648F] active:text-black focus:outline-2 focus:outline-[#C4C1FF] cursor-pointer"
+                        className="rounded-full px-8 w-full h-full flex justify-center items-center text-sm font-extrabold bg-background md:hover:bg-foreground md:hover:text-background md:hover:opacity-60 md:active:bg-foreground md:active:text-background md:active:opacity-80 cursor-pointer"
                     >
                         Update Income
                     </button>

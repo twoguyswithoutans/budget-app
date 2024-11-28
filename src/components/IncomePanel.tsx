@@ -1,5 +1,5 @@
-import { AddIncome } from "@/mutations/income/AddIncome"
 import { useState } from "react"
+import { AddIncome } from "income/Income"
 
 export default function IncomePanel() {
     const [income, setIncome] = useState<string>("");
@@ -41,7 +41,7 @@ export default function IncomePanel() {
                     <div className="w-full md:w-1/2 h-24">
                         <button
                             type="submit"
-                            className="w-full h-full py-5 my-5 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-black text-4xl rounded-lg text-center shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]"
+                            className="w-full h-full py-5 my-5 font-black text-4xl rounded-lg text-center text-background bg-foreground md:hover:opacity-60 md:active:opacity-80"
                         >
                             Submit
                         </button>

@@ -6,7 +6,7 @@ interface MobileViewNavbarDropdownProps {
     changeIncome: () => void;
 }
 
-export default function MobileViewNavbarDropdown({openAddLimitOverlay, openAddExpenseOverlay, changeIncome}: MobileViewNavbarDropdownProps) {
+export default function MobileViewNavbarDropdown({openAddLimitOverlay, openAddExpenseOverlay, changeIncome}: Readonly<MobileViewNavbarDropdownProps>) {
     const [isOpen, setIsOpen] = useState(false);
     const toggleDropdown = () => { setIsOpen(!isOpen) }
 

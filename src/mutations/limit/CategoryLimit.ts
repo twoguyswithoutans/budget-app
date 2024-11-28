@@ -12,3 +12,12 @@ export function AddCategoryLimit({category, limit}: CategoryLimit) {
     localStorage.setItem("categoryLimit", JSON.stringify(updatedLimit));
     window.location.reload();
 }
+
+export function GetCategoryLimit() {
+    const categoryLimit = localStorage.getItem('categoryLimit');
+    if(categoryLimit) {
+        const parsedCategoryLimit = JSON.parse(categoryLimit);
+        return parsedCategoryLimit;
+    }
+    return null;
+}

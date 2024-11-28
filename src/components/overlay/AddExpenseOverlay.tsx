@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { AddExpense } from "expense/AddExpense"
 import { format } from "date-fns"
-import { AddExceededCategories } from "limits/AddExceededCategories";
-import { PresetCategories } from "models/Models";
+import { AddExpense } from "expense/Expense"
+import { AddExceededCategory } from "limit/ExceededCategory";
+import { PresetCategory } from "models/Models";
 
 interface ExpensePanelProps {
     isOpen: (value: boolean) => void;
@@ -74,8 +74,8 @@ export default function AddExpenseOverlay({ isOpen }: ExpensePanelProps) {
         }
 
         AddExpense(expense);
-        const exceededCategories = checkExceededLimits();
-        AddExceededCategories({ category: exceededCategories });
+        const exceededCategory = checkExceededLimits();
+        AddExceededCategory({ category: exceededCategory });
     }
 
     return (
@@ -84,7 +84,7 @@ export default function AddExpenseOverlay({ isOpen }: ExpensePanelProps) {
             className="fixed top-0 left-0 w-full h-full py-5 flex justify-center items-center bg-black bg-opacity-50 z-50"
         >
             <div className="rounded w-[90vw] h-full px-4 md:px-16 pb-16 pt-3 flex flex-col justify-start bg-background shadow-lg">
-                <div className="pb-4 flex justify-end text-base font-thin">
+                <div className="pb-4 flex justify-end text-base font-black">
                     <button className="secondary-foreground" onClick={() => isOpen(false)}>close</button>
                 </div>
                 <form
@@ -128,7 +128,7 @@ export default function AddExpenseOverlay({ isOpen }: ExpensePanelProps) {
                             className="rounded-xl w-full h-full flex items-center text-sm md:text-base font-semibold bg-content-secondary focus:outline-none focus:bg-transparent text-content-primary"
                         >
                             <option value="" disabled>Select a category...</option>
-                            {Object.keys(PresetCategories).map((category: string) => (
+                            {Object.keys(PresetCategory).map((category: string) => (
                                 <option key={category} value={category}>
                                     {category}
                                 </option>
@@ -139,7 +139,7 @@ export default function AddExpenseOverlay({ isOpen }: ExpensePanelProps) {
                     <div className="w-full md:w-1/2 h-24">
                         <button
                             type="submit"
-                            className="w-full h-full py-5 my-5 text-white bg-gradient-to-r from-blue-500 via-blue-600 to-blue-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-black text-4xl rounded-lg text-center shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)]"
+                            className="w-full h-full py-5 my-5 font-black text-4xl rounded-lg text-center text-background bg-foreground md:hover:opacity-60 md:active:opacity-80"
                         >
                             Submit
                         </button>

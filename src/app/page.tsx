@@ -1,15 +1,17 @@
 'use client';
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import Navbar from "navbar/Navbar";
 import IncomePanel from "components/IncomePanel";
 import ExpenseBarChart from "components/ExpenseBarChart";
 import CategoryBox from "components/CategoryBox";
+import BudgetAlert from "overlay/BudgetAlert";
 import AddLimitOverlay from "overlay/AddLimitOverlay";
 import AddExpenseOverlay from "overlay/AddExpenseOverlay";
-import BudgetAlert from "overlay/BudgetAlert";
-import { TotalExpense } from "expense/TotalExpense";
-import { MonthlyExpense } from "expense/MonthlyExpense";
-import { ExceededCategories } from "models/Models";
+import { GetExpense, SetMonthlyExpense, SetTotalExpense } from "expense/Expense";
+import { GetExceededCategory } from "limit/ExceededCategory";
+import { GetIncome } from "income/Income";
+import { ExceededCategory } from "models/Models";
 
 export default function Home() {
 	const [income, setIncome] = useState<boolean>();
@@ -28,27 +30,27 @@ export default function Home() {
 	}
 
 	useEffect(() => {
-		MonthlyExpense();
-		TotalExpense();
+		SetMonthlyExpense();
+		SetTotalExpense();
 	} ,[]);
 
 	useEffect(() => {
-		const storedIncome = localStorage.getItem("income");
+		const storedIncome = GetIncome();
 		if (storedIncome !== null) { setIncome(false); }
 		else { setIncome(true); }
 	} ,[]);
 
 	useEffect(() => {
-		const storedExpenses = localStorage.getItem("expense");
+		const storedExpenses = GetExpense();
         if (storedExpenses !== null) { setExpenses(true); }
         else { setExpenses(false); }
 	} ,[]);
 
 	useEffect(() => {
 		const limit = [];
-		const limitExceededCategories: ExceededCategories[] = JSON.parse(localStorage.getItem("exceededCategories") || "[]");
-		limit.push(limitExceededCategories[0]?.category);
-		if(limitExceededCategories[0]?.category !== undefined) {
+		const limitExceededCategory = GetExceededCategory();
+		limit.push(limitExceededCategory);
+		if(limitExceededCategory !== undefined) {
 			if(limit[0]?.length !== 0) { setShowAlert(true); }
 			else { setShowAlert(false); }
 		}
@@ -79,6 +81,14 @@ export default function Home() {
 					<div className="w-[90vw] flex justify-center">
 						{expenses ? (
 							<div className="w-full flex flex-col">
+								<div className="w-full flex justify-star text-foreground mt-10">
+									<Link
+										className="rounded-lg w-full md:w-1/2 p-5 bg-primary hover:opacity-70 active:opacity-90 text-background font-lg font-bold"
+										href="/insight"
+									>
+										Open Insights
+									</Link>
+								</div>
 								<div className="w-full md:w-1/2 h-full py-12 flex justify-center items-center z-20">
 									<CategoryBox />
 								</div>

@@ -1,17 +1,17 @@
 export type Income = {
-    amount: number;
+    amount: number | bigint;
 }
 
 export type Transaction = {
     price: number;
-    date?: Date | undefined | string;
+    date: string;
     description?: string | undefined;
     category: string;
 }
 
 export type Category = {
     category: string;
-    amount: number;
+    price: number;
 }
 
 export type CategoryLimit = {
@@ -19,11 +19,11 @@ export type CategoryLimit = {
     limit: number;
 }
 
-export type ExceededCategories = {
+export type ExceededCategory = {
     category: Array<string>;
 }
 
-export enum PresetCategories {
+export enum PresetCategory {
     Food = 'Food',
     Transportation = 'Transportation',
     Utilities = 'Utilities',

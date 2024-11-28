@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BarChart, CartesianGrid, XAxis, YAxis, Tooltip, Bar, ResponsiveContainer } from "recharts";
-import { GetExpense } from "expense/GetExpenses";
+import { GetExpense } from "expense/Expense";
 import { parseISO, getMonth, getYear } from 'date-fns';
 
 const formatCurrency = new Intl.NumberFormat('tr-TR', {
@@ -29,7 +29,7 @@ export default function ExpenseBarChart() {
         <div className="rounded-lg w-full h-full p-10 flex flex-col border border-secondary">
             <div className="my-12 flex justify-end">
                 <button
-                    className="rounded py-2 px-4 text-white font-bold bg-[#A99DE5] md:hover:opacity-60 md:active:bg-[#716cc4]"
+                    className="rounded py-2 px-4 text-background font-bold bg-foreground md:hover:opacity-60 md:active:opacity-80"
                     onClick={() => setView(view === "monthly" ? "yearly" : "monthly")}>
                     {view === "monthly" ? "Show Yearly View" : "Show Monthly View"}
                 </button>
