@@ -5,7 +5,7 @@ import { Category, Income } from "models/Models";
 import { turkishCurrencyFormat } from "@/util/CurrencyFormat"
 
 export default function CategoryBox() {
-    const [iscategory, setCategory] = useState<{ [key: string]: number }>({});
+    const [categoryList, setCategoryList] = useState<{ [key: string]: number }>({});
     const [totalExpense, setTotalExpense] = useState<Income>();
     const [limit, setLimit] = useState<string[]>([]);
 
@@ -20,7 +20,7 @@ export default function CategoryBox() {
                 categoryTotals[item.category] = item.price;
             }
         }
-        setCategory(categoryTotals);
+        setCategoryList(categoryTotals);
     }, []);
 
     useEffect(() => {
@@ -36,7 +36,7 @@ export default function CategoryBox() {
     return (
         <div className="rounded-xl w-full h-full border-2 border-secondary">
             <div className="border-b-2 border-secondary">
-                {Object.keys(iscategory).map((categoryItem)  => (
+                {Object.keys(categoryList).map((categoryItem)  => (
                     <div className="my-5 px-5 flex justify-between items-center text-base font-semibold" key={categoryItem}>
                         <div className="flex items-center">
                             <div className="rounded-sm w-[10px] h-[10px] mr-2 border border-secondary-foreground bg-secondary-foreground"></div>
@@ -48,7 +48,7 @@ export default function CategoryBox() {
                             </span>
                         </div>
                         <span className={`text-primary ${limit?.includes(categoryItem) ? "text-red-600 font-black": ""}`}>
-                            {turkishCurrencyFormat.format(iscategory[categoryItem]) || "0.00"}
+                            {turkishCurrencyFormat.format(categoryList[categoryItem]) || "0.00"}
                         </span>
                     </div>
                 ))}

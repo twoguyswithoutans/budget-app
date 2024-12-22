@@ -8,7 +8,7 @@ import { GetIncome } from "income/Income"
 import { parseISO, format } from 'date-fns';
 import Link from 'next/link';
 
-export default function DownloadPDFButton() {
+export default function BudgetInsight() {
     const [income, setIncome] = useState('');
     const [monthlyExpense, setMonthlyExpense] = useState('');
     const [totalExpense, setTotalExpense] = useState('');

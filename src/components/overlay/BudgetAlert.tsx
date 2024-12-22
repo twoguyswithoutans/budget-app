@@ -5,7 +5,7 @@ interface BudgetAlertProps {
     setShowAlert: (value: boolean) => void;
 }
 
-export default function BudgetAlert({ setShowAlert }: BudgetAlertProps) {
+export default function BudgetAlert({ setShowAlert }: Readonly<BudgetAlertProps>) {
     const limits: ExceededCategory[] = GetExceededCategory() || [];
     const limited = limits.flatMap(category => category);
     return (

@@ -3,13 +3,16 @@ import { format } from "date-fns"
 import { AddExpense } from "expense/Expense"
 import { AddExceededCategory } from "limit/ExceededCategory";
 import { PresetCategory } from "models/Models";
+import Overlay from "./Overlay";
+import OverlayInput from "./OverlayInput";
+import OverlaySelect from "./OverlaySelect";
 
 interface ExpensePanelProps {
     isOpen: (value: boolean) => void;
 }
 
-export default function AddExpenseOverlay({ isOpen }: ExpensePanelProps) {
-    const [price, setAmount] = useState<number>();
+export default function AddExpenseOverlay({ isOpen }: Readonly<ExpensePanelProps>) {
+    const [price, setPrice] = useState<number>();
     const [date, setDate] = useState<string>(format(new Date(), "yyyy-MM-dd"));
     const [description, setDescription] = useState<string>("");
     const [category, setCategory] = useState<string>("");
@@ -18,7 +21,7 @@ export default function AddExpenseOverlay({ isOpen }: ExpensePanelProps) {
         const value = event.target.value.replace(/\D/g, '');
         const amount = Number(value);
         if (amount > 0) {
-            setAmount(amount);
+            setPrice(amount);
         }
     };
     const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,8 +70,8 @@ export default function AddExpenseOverlay({ isOpen }: ExpensePanelProps) {
     const submitExpense = () => {
         if (price === undefined || price <= 0) { return }
         const expense = {
-            price: price !== undefined ? price : 0,
-            date: date !== undefined ? date : format(new Date(), "yyyy-MM-dd"),
+            price: price ?? 0,
+            date: date ?? format(new Date(), "yyyy-MM-dd"),
             description: description,
             category: category
         }
@@ -79,73 +82,13 @@ export default function AddExpenseOverlay({ isOpen }: ExpensePanelProps) {
     }
 
     return (
-        <div
-            onKeyDown={handleKeyPress}
-            className="fixed top-0 left-0 w-full h-full py-5 flex justify-center items-center bg-black bg-opacity-50 z-50"
-        >
-            <div className="rounded w-[90vw] h-full px-4 md:px-16 pb-16 pt-3 flex flex-col justify-start bg-background shadow-lg">
-                <div className="pb-4 flex justify-end text-base font-black">
-                    <button className="secondary-foreground" onClick={() => isOpen(false)}>close</button>
-                </div>
-                <form
-                    onSubmit={submitExpense}
-                    className="w-full h-full pt-4 pb-12 flex flex-col justify-start items-center"
-                >
-                    <div className="pb-5 text-2xl font-semibold text-content-secondary_foreground">Add a transaction</div>
-
-                    <div className="rounded-xl border w-full md:w-1/2 h-24 mb-5 pr-5 md:px-5 flex items-center bg-content-secondary focus-within:ring-2 focus-within:ring-content-secondary ring-offset-2 ring-offset-content">
-                        <div className="px-5 text-sm font-semibold text-secondary">Price</div>
-                        <span className="px-1 text-black text-xl font-semibold text-content-secondary_foreground">₺</span>
-                        <input className="w-full h-full bg-transparent text-sm md:text-base font-semibold focus:outline-none focus:bg-transparent text-content-primary" type="text" placeholder="X,XXX"
-                        value={price !== undefined ? price.toLocaleString() : ''}
-                        onChange={handleAmountChange}
-                        required
-                        />
-                    </div>
-                    <div className="rounded-xl border w-full md:w-1/2 h-24 mb-5 pr-5 md:px-5 flex items-center bg-content-secondary focus-within:ring-2 focus-within:ring-content-secondary ring-offset-2 ring-offset-content">
-                        <div className="px-5 text-sm font-semibold text-secondary">Date</div>
-                        <input className="w-full h-full bg-transparent text-sm md:text-base font-semibold focus:outline-none focus:bg-transparent text-content-primary" type="date"
-                        value={date}
-                        onChange={handleDateChange}
-                        />
-                    </div>
-                    <div className="rounded-xl border w-full md:w-1/2 h-24 mb-5 pr-5 md:px-5 flex items-center bg-content-secondary focus-within:ring-2 focus-within:ring-content-secondary ring-offset-2 ring-offset-content">
-                        <div className="px-5 text-sm font-semibold text-secondary">Description</div>
-                        <input
-                            className="w-full h-full bg-transparent text-sm md:text-base font-semibold focus:outline-none focus:bg-transparent text-content-primary"
-                            type="text" placeholder="write a description..."
-                            value={description}
-                            onChange={handleDescriptionChange}
-                            required
-                        />
-                    </div>
-                    <div className="rounded-xl border w-full md:w-1/2 h-24 mb-5 pr-5 md:px-5 flex items-center bg-content-secondary focus-within:ring-2 focus-within:ring-content-secondary ring-offset-2 ring-offset-content">
-                        <div className="px-5 text-sm font-semibold text-secondary">Category</div>
-                        <select
-                            required
-                            value={category}
-                            onChange={handleCategoryChange}
-                            className="rounded-xl w-full h-full flex items-center text-sm md:text-base font-semibold bg-content-secondary focus:outline-none focus:bg-transparent text-content-primary"
-                        >
-                            <option value="" disabled>Select a category...</option>
-                            {Object.keys(PresetCategory).map((category: string) => (
-                                <option key={category} value={category}>
-                                    {category}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-
-                    <div className="w-full md:w-1/2 h-24">
-                        <button
-                            type="submit"
-                            className="w-full h-full py-5 my-5 font-black text-4xl rounded-lg text-center text-background bg-foreground md:hover:opacity-60 md:active:opacity-80"
-                        >
-                            Submit
-                        </button>
-                    </div>
-                </form>
-            </div>
+        <div onKeyDown={handleKeyPress} role="menu" tabIndex={0}>
+            <Overlay isOpen={isOpen} submitFunction={submitExpense} title="Add a Limit">
+                <OverlayInput title="Amount" currency="₺" type="text" placeholder="X,XXX" value={price !== undefined ? price.toLocaleString() : ''} handleChange={handleAmountChange} />
+                <OverlayInput title="Date" type="date" value={date} handleChange={handleDateChange} />
+                <OverlayInput title="Description" type="text" placeholder="write a description..." value={description} handleChange={handleDescriptionChange} />
+                <OverlaySelect title="Category" value={category} handleChange={handleCategoryChange} optionTitle="Select a category..." options={PresetCategory} />
+            </Overlay>
         </div>
     )
 }

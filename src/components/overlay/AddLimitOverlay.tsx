@@ -2,12 +2,15 @@ import { useState } from "react"
 import { AddCategoryLimit } from "limit/CategoryLimit"
 import { AddExceededCategory } from "limit/ExceededCategory";
 import { PresetCategory } from "models/Models"
+import Overlay from "./Overlay";
+import OverlayInput from "./OverlayInput";
+import OverlaySelect from "./OverlaySelect";
 
 interface AddLimitOverlayProps {
     isOpen: (value: boolean) => void;
 }
 
-export default function AddLimitOverlay({ isOpen }: AddLimitOverlayProps) {
+export default function AddLimitOverlay({ isOpen }: Readonly<AddLimitOverlayProps>) {
     const [amount, setAmount] = useState<number>();
     const [category, setCategory] = useState<string>("");
 
@@ -56,7 +59,7 @@ export default function AddLimitOverlay({ isOpen }: AddLimitOverlayProps) {
     const submitLimit = () => {
         const limit = {
             category: category,
-            limit: amount !== undefined ? amount : 0,
+            limit: amount ?? 0,
         }
         AddCategoryLimit(limit);
         const exceededCategory = checkExceededLimits();
@@ -64,56 +67,11 @@ export default function AddLimitOverlay({ isOpen }: AddLimitOverlayProps) {
     }
 
   return (
-    <div
-        className="fixed top-0 left-0 w-full h-full py-12 flex justify-center items-center bg-black bg-opacity-50 z-50"
-        onKeyDown={handleKeyPress}
-    >
-        <div className="rounded w-[90vw] h-full px-4 md:px-16 pb-16 pt-3 flex flex-col justify-start bg-background shadow-lg">
-             <div className="pb-12 flex justify-end text-base font-black">
-                <button className="secondary-foreground" onClick={() => isOpen(false)}>close</button>
-            </div>
-            <form
-                onSubmit={submitLimit}
-                className="w-full h-full pt-4 pb-12 flex flex-col justify-between items-center"
-            >
-                <div className="py-5 text-2xl font-semibold text-content-secondary_foreground">Add a Limit</div>
-
-                <div className="rounded-xl border w-full md:w-1/2 h-24 mb-5 pr-5 md:px-5 flex items-center bg-content-secondary focus-within:ring-2 focus-within:ring-content-secondary ring-offset-2 ring-offset-content">
-                    <div className="px-5 text-sm font-semibold text-secondary">Amount</div>
-                    <span className="px-1 text-black text-xl font-semibold text-content-secondary_foreground">₺</span>
-                    <input className="w-full h-full bg-transparent text-sm md:text-base font-semibold focus:outline-none focus:bg-transparent text-content-primary" type="text" placeholder="X,XXX"
-                    value={amount !== undefined ? amount.toLocaleString() : ''}
-                    onChange={handleAmountChange}
-                    required
-                    />
-                </div>
-                <div className="rounded-xl border w-full md:w-1/2 h-24 mb-5 pr-5 md:px-5 flex items-center bg-content-secondary focus-within:ring-2 focus-within:ring-content-secondary ring-offset-2 ring-offset-content">
-                    <div className="px-5 text-sm font-semibold text-secondary">Category</div>
-                    <select
-                        required
-                        value={category}
-                        onChange={handleCategoryChange}
-                        className="rounded-xl w-full h-full flex items-center text-sm md:text-base font-semibold bg-content-secondary focus:outline-none focus:bg-transparent text-content-primary"
-                    >
-                        <option value="" disabled>Select a category...</option>
-                        {Object.keys(PresetCategory).map((category: string) => (
-                            <option key={category} value={category}>
-                                {category}
-                            </option>
-                        ))}
-                    </select>
-                </div>
-
-                <div className="w-full md:w-1/2 h-24">
-                    <button
-                        type="submit"
-                        className="w-full h-full py-5 my-5 font-black text-4xl rounded-lg text-center text-background bg-foreground md:hover:opacity-60 md:active:opacity-80"
-                    >
-                        Submit
-                    </button>
-                </div>
-            </form>
-        </div>
+    <div onKeyDown={handleKeyPress} role="menu" tabIndex={0}>
+        <Overlay isOpen={isOpen} submitFunction={submitLimit} title="Add a Limit">
+            <OverlayInput title="Amount" currency="₺" type="text" placeholder="X,XXX" value={amount !== undefined ? amount.toLocaleString() : ''} handleChange={handleAmountChange} />
+            <OverlaySelect title="Category" value={category} handleChange={handleCategoryChange} optionTitle="Select a category..." options={PresetCategory} />
+        </Overlay>
     </div>
   )
 }

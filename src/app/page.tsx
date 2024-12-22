@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Navbar from "navbar/Navbar";
-import IncomePanel from "components/IncomePanel";
+import IncomeOverlay from "overlay/IncomeOverlay";
 import ExpenseBarChart from "components/ExpenseBarChart";
 import CategoryBox from "components/CategoryBox";
 import BudgetAlert from "overlay/BudgetAlert";
@@ -29,6 +29,24 @@ export default function Home() {
 	}
 
 	useEffect(() => {
+		const limit = [];
+		const limitExceededCategory = GetExceededCategory();
+		limit.push(limitExceededCategory);
+		if(limitExceededCategory) {
+			if(limit[0]?.length !== 0) { setShowAlert(true); }
+			else { setShowAlert(false); }
+		}
+    }, []);
+
+	useEffect(() => {
+        if (isAddLimitOpen || isAddExpenseOpen || showAlert) {
+            document.body.classList.add('no-scroll');
+        } else {
+            document.body.classList.remove('no-scroll');
+        }
+    }, [isAddLimitOpen, isAddExpenseOpen, showAlert]);
+
+	useEffect(() => {
 		SetMonthlyExpense();
 		SetTotalExpense();
 	} ,[]);
@@ -45,21 +63,11 @@ export default function Home() {
         else { setExpenses(false); }
 	} ,[]);
 
-	useEffect(() => {
-		const limit = [];
-		const limitExceededCategory = GetExceededCategory();
-		limit.push(limitExceededCategory);
-		if(limitExceededCategory) {
-			if(limit[0]?.length !== 0) { setShowAlert(true); }
-			else { setShowAlert(false); }
-		}
-    }, []);
-
 	return (
 		<div className="w-full h-full">
 			{income ? (
 				<div className="h-dvh flex justify-center items-center">
-					<IncomePanel />
+					<IncomeOverlay />
 				</div>
 			) : (
 				<div className="w-full h-full flex flex-col justify-start items-center">
